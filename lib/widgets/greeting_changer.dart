@@ -8,14 +8,14 @@ class GreetingChanger extends StatefulWidget {
 }
 
 class _GreetingChangerState extends State<GreetingChanger> {
-  List<String> greetings = ['Hello', 'Namaste', 'Hola'];
+  List<String> greetings = ['hi.', 'namaste.', 'hola.'];
   int currentIndex = 0;
   late Timer timer;
 
   @override
   void initState() {
     super.initState();
-    timer = Timer.periodic(Duration(seconds: 1), (Timer t) {
+    timer = Timer.periodic(Duration(seconds: 2), (Timer t) {
       setState(() {
         currentIndex = (currentIndex + 1) % greetings.length;
       });
@@ -32,7 +32,7 @@ class _GreetingChangerState extends State<GreetingChanger> {
   Widget build(BuildContext context) {
     return Text(
       greetings[currentIndex],
-      style: GoogleFonts.antonio(fontSize: 40, color: Colors.white),
+      style: GoogleFonts.ibmPlexMono(fontSize: 50, color: Colors.white, fontWeight: FontWeight.w500),
     );
   }
 }
