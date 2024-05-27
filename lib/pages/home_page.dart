@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/components/round_cursor.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import '../widgets/greeting_changer.dart';
+import '../widgets/project_card.dart';
+import '../widgets/project_dropdown.dart';
 import '../widgets/square_button.dart';
 
 
@@ -17,6 +19,36 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final AutoScrollController _scrollController = AutoScrollController();
 
+  final List<Map<String, String>> projects = [
+    {
+      'name': 'need',
+      'description': 'Need is a compassionate Flutter application integrated with Firebase and Git, dedicated to addressing the needs of the underprivileged. Leveraging Flutter versatile UI capabilities, Firebase real-time database, and Git for version control, Need provides a user-friendly platform for connecting donors with those in need. With its seamless integration of technology and humanitarianism, Need aims to streamline aid distribution processes, ensuring efficient and transparent assistance to the needy.',
+      'url': 'https://github.com/wiredtilldawn/need',
+    },
+    {
+      'name': 'need',
+      'description': 'Need is a compassionate Flutter application integrated with Firebase and Git, dedicated to addressing the needs of the underprivileged. Leveraging Flutter versatile UI capabilities, Firebase real-time database, and Git for version control, Need provides a user-friendly platform for connecting donors with those in need. With its seamless integration of technology and humanitarianism, Need aims to streamline aid distribution processes, ensuring efficient and transparent assistance to the needy.',
+      'url': 'https://github.com/wiredtilldawn/need',
+    },
+    {
+      'name': 'need',
+      'description': 'Need is a compassionate Flutter application integrated with Firebase and Git, dedicated to addressing the needs of the underprivileged. Leveraging Flutter versatile UI capabilities, Firebase real-time database, and Git for version control, Need provides a user-friendly platform for connecting donors with those in need. With its seamless integration of technology and humanitarianism, Need aims to streamline aid distribution processes, ensuring efficient and transparent assistance to the needy.',
+      'url': 'https://github.com/wiredtilldawn/need',
+    },
+    {
+      'name': 'need',
+      'description': 'Need is a compassionate Flutter application integrated with Firebase and Git, dedicated to addressing the needs of the underprivileged. Leveraging Flutter versatile UI capabilities, Firebase real-time database, and Git for version control, Need provides a user-friendly platform for connecting donors with those in need. With its seamless integration of technology and humanitarianism, Need aims to streamline aid distribution processes, ensuring efficient and transparent assistance to the needy.',
+      'url': 'https://github.com/wiredtilldawn/need',
+    },
+  ];
+
+  Map<String, String>? selectedProject;
+
+  void onProjectSelected(Map<String, String> project) {
+    setState(() {
+      selectedProject = project;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,8 +71,9 @@ class _HomePageState extends State<HomePage> {
         ),
 
         body:  ListView(
-            children: [
+            children: <Widget>[
 
+              //introduction block
               Padding(
                 padding: EdgeInsets.only(right: screenWidth * 0.2,left: screenWidth * 0.2,top: screenHeight * 0.10),
                 child: Column(
@@ -103,6 +136,8 @@ class _HomePageState extends State<HomePage> {
                 height: 50,
               ),
 
+
+              //write block
               Padding(
                 padding: EdgeInsets.only(right: screenWidth * 0.2,left: screenWidth * 0.2,top: screenHeight * 0.10),
                 child: Column(
@@ -136,29 +171,102 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
 
+              //articles button
               Padding(
-                padding: EdgeInsets.only(right: screenWidth * 0.2,left: screenWidth * 0.2,),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SquareButtonWidget(
-                      icon: Icons.link,
-                      url: 'https://medium.com/top-designers-portfolio/4-amazing-portfolios-of-apple-designers-95eb496ea69f',
-                      color: Colors.grey.shade900,
-                    ),
-                    SquareButtonWidget(
-                      icon: Icons.link,
-                      url: 'https://medium.com/top-designers-portfolio/4-amazing-portfolios-of-apple-designers-95eb496ea69f',
-                      color: Colors.grey.shade900,
-                    ),
-                    SquareButtonWidget(
-                      icon: Icons.link,
-                      url: 'https://medium.com/top-designers-portfolio/4-amazing-portfolios-of-apple-designers-95eb496ea69f',
-                      color: Colors.grey.shade900,
-                    ),
-                  ],
+                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.2),
+                child: GridView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: (screenWidth > 600) ? 3 : 1, // Adjust number of columns based on screen width
+                    crossAxisSpacing: 20.0,
+                    mainAxisSpacing: 20.0,
+                    childAspectRatio: 1,
+                  ),
+                  itemCount: 3,
+                  itemBuilder: (context, index) {
+                    final items = [
+                      {
+                        'icon': Icons.tv,
+                        'url': 'https://medium.com/@tarunsri0017/exploring-the-future-with-visionos-a-personal-journey-into-the-next-generation-of-augmented-5fd2c58bdffb',
+                        'label': 'VisionOS',
+                      },
+                      {
+                        'icon': Icons.minimize,
+                        'url': 'https://medium.com/@tarunsri0017/minimalism-how-to-declutter-your-life-for-greater-happiness-61900010e540',
+                        'label': 'Minimalism',
+                      },
+                      {
+                        'icon': Icons.crisis_alert_rounded,
+                        'url': 'https://medium.com/top-designers-portfolio/4-amazing-portfolios-of-apple-designers-95eb496ea69f',
+                        'label': 'Design Portfolios',
+                      },
+                    ];
+
+                    return Column(
+                      children: [
+                        Flexible(
+                          child: SquareButtonWidget(
+                            icon: items[index]['icon'] as IconData,
+                            url: items[index]['url'] as String,
+                            color: Colors.grey.shade900,
+                          ),
+                        ),
+                        SizedBox(height: 8.0),
+                        Text(
+                          items[index]['label'] as String,
+                          style: GoogleFonts.ibmPlexMono(
+                            fontSize: 15,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 ),
               ),
+
+              SizedBox(height: 80),
+
+
+             Padding(
+               padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.2),
+               child: Row(
+                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                 children: [
+                   //project title
+                   ProjectDropdown(
+                     projects: projects,
+                     onProjectSelected: onProjectSelected,
+                   ),
+
+                   //project dropdown
+                   Text(
+                     "Projects",
+                     style: GoogleFonts.ibmPlexMono(fontSize: 30, color: Colors.white, fontWeight: FontWeight.w500),
+
+                   ),
+                 ],
+               ),
+             ),
+
+              SizedBox(height: 20),
+
+              //show project
+              if (selectedProject != null)
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.2),
+                  child: ProjectCard(project: selectedProject!),
+                ),
+
+
+              SizedBox(height: 80),
+
+
+
+
+
 
 
 
