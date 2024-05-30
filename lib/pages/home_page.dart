@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/components/round_cursor.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../widgets/greeting_changer.dart';
 import '../widgets/project_card.dart';
 import '../widgets/project_dropdown.dart';
@@ -59,9 +60,10 @@ class _HomePageState extends State<HomePage> {
     return CustomCursorWrapper(
       child: Scaffold(
         backgroundColor: Colors.black,
-
+        extendBodyBehindAppBar: true,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
+          elevation: 0,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -70,9 +72,16 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
 
-        body:  ListView(
+        body:  Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/background.png'),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: ListView(
             children: <Widget>[
-
+                    
               //introduction block
               Padding(
                 padding: EdgeInsets.only(right: screenWidth * 0.2,left: screenWidth * 0.2,top: screenHeight * 0.10),
@@ -83,31 +92,31 @@ class _HomePageState extends State<HomePage> {
                     Text(
                       "i'm",
                       style: GoogleFonts.ibmPlexMono(fontSize: 50, color: Colors.white, fontWeight: FontWeight.w500),
-
+                    
                     ),
                     Text(
                       "tarun.",
                       style: GoogleFonts.ibmPlexMono(fontSize: 50, color: Colors.white, fontWeight: FontWeight.w500),
-
+                    
                     ),
-
+                    
                     SizedBox(
                       height: 20,
                     ),
-
-
+                    
+                    
                     Container(
                       child: Text(
                         "I'm a software developer dedicated to crafting impactful solutions that elegantly address users' needs. With a focus on simplicity and efficiency, I integrate elements of personal life into my designs, prioritizing user experience and rights to create meaningful interactions. My work captures the essence of life by highlighting what's essential, resonating with users on both practical and emotional levels.",
                         style: GoogleFonts.ibmPlexMono(fontSize: 15, color: Colors.white, fontWeight: FontWeight.w400),
-
+                    
                       ),
                     ),
-
+                    
                     SizedBox(
                       height: 40,
                     ),
-
+                    
                     OutlinedButton(
                       onPressed: () {
                         print('Button tapped');
@@ -119,7 +128,7 @@ class _HomePageState extends State<HomePage> {
                           borderRadius: BorderRadius.circular(30), // Cylindrical shape
                         ),
                       ),
-
+                    
                       child: Text(
                           'Say hi.',
                           style: GoogleFonts.ibmPlexMono(
@@ -131,12 +140,12 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-
+                    
               SizedBox(
                 height: 50,
               ),
-
-
+                    
+                    
               //write block
               Padding(
                 padding: EdgeInsets.only(right: screenWidth * 0.2,left: screenWidth * 0.2,top: screenHeight * 0.10),
@@ -146,31 +155,31 @@ class _HomePageState extends State<HomePage> {
                     Text(
                       "Write",
                       style: GoogleFonts.ibmPlexMono(fontSize: 40, color: Colors.white, fontWeight: FontWeight.w500),
-
+                    
                     ),
-
+                    
                     SizedBox(
                       height: 20,
                     ),
-
-
+                    
+                    
                     Container(
                       child: Text(
                         "As a software developer, I regularly document my learning experiences and product developments. I also enjoy sharing my expertise to enlighten others. My innovative approach to writing blends technical insights with practical advice, aiming to inspire and inform. You can find some of my latest work below.",
                         style: GoogleFonts.ibmPlexMono(fontSize: 15, color: Colors.white, fontWeight: FontWeight.w400),
-
+                    
                       ),
                     ),
-
+                    
                     SizedBox(
                       height: 40,
                     ),
-
-
+                    
+                    
                   ],
                 ),
               ),
-
+                    
               //articles button
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.2),
@@ -202,7 +211,7 @@ class _HomePageState extends State<HomePage> {
                         'label': 'Design Portfolios',
                       },
                     ];
-
+                    
                     return Column(
                       children: [
                         Flexible(
@@ -226,10 +235,10 @@ class _HomePageState extends State<HomePage> {
                   },
                 ),
               ),
-
+                    
               SizedBox(height: 80),
-
-
+                    
+                    
              Padding(
                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.2),
                child: Row(
@@ -240,47 +249,103 @@ class _HomePageState extends State<HomePage> {
                      projects: projects,
                      onProjectSelected: onProjectSelected,
                    ),
-
+                    
                    //project dropdown
                    Text(
                      "Projects",
                      style: GoogleFonts.ibmPlexMono(fontSize: 30, color: Colors.white, fontWeight: FontWeight.w500),
-
+                    
                    ),
                  ],
                ),
              ),
-
+                    
               SizedBox(height: 20),
-
+                    
               //show project
               if (selectedProject != null)
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.2),
                   child: ProjectCard(project: selectedProject!),
                 ),
+                    
+                    
+              SizedBox(height: 20),
+// Four text buttons
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.2),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      // Text button 1
+                      TextButton(
+                        onPressed: () {
+                          launch('https://github.com/wiredtilldawn/need1');
+                        },
+                        child: Text(
+                          'GitHub',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                      // Text button 2
+                      TextButton(
+                        onPressed: () {
+                          launch('https://github.com/wiredtilldawn/need2');
+                        },
+                        child: Text(
+                          'GitHub',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                      // Text button 3
+                      TextButton(
+                        onPressed: () {
+                          launch('https://github.com/wiredtilldawn/need3');
+                        },
+                        child: Text(
+                          'GitHub',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                      // Text button 4
+                      TextButton(
+                        onPressed: () {
+                          launch('https://github.com/wiredtilldawn/need4');
+                        },
+                        child: Text(
+                          'GitHub',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
 
-
-              SizedBox(height: 80),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                    
+              
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
             ],),
+        ),
       ),
     );
   }
